@@ -7,7 +7,11 @@ import java.io.InputStream;
  * 文件操作帮助类
  * Created by dreamlivemeng on 2016/6/7.
  */
-public class FileUtils {
+public final class FileUtils {
+
+    private FileUtils() throws InstantiationException {
+        throw new InstantiationException("This utility class is not created for instantiation");
+    }
 
     /**
      * 关闭输入流

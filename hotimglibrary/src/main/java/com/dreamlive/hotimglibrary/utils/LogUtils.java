@@ -7,10 +7,14 @@ import android.util.Log;
  * 日志打印帮助类
  * Created by dreamlivemeng on 2016/6/7.
  */
-public class LogUtils {
+public final class LogUtils {
 	
 	private final static boolean IS_DEBUG = true;
-	
+
+	private LogUtils() throws InstantiationException {
+		throw new InstantiationException("This utility class is not created for instantiation");
+	}
+
 	public static void e(String tag, String msg) {
 		if(IS_DEBUG) {
 			Log.e(tag, checkMsg(msg));

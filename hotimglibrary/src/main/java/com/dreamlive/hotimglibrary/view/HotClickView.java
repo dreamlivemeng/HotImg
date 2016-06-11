@@ -241,6 +241,8 @@ public class HotClickView extends View {
             case MotionEvent.ACTION_CANCEL:
                 upToCheckOutOfSide(event);
                 break;
+            default:
+                break;
         }
     }
 
@@ -254,6 +256,8 @@ public class HotClickView extends View {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 upToCheckIsClick(event);
+                break;
+            default:
                 break;
         }
     }
@@ -280,6 +284,8 @@ public class HotClickView extends View {
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
                 mIsTwoFinger = false;
+                break;
+            default:
                 break;
         }
     }
@@ -506,6 +512,8 @@ public class HotClickView extends View {
                 if (event.getPointerCount() == 0) {
                     upToCheckOutOfSide(event);
                 }
+                break;
+            default:
                 break;
         }
     }

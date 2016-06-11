@@ -36,7 +36,7 @@ public class HotClickView extends View {
 
     private final static String TAG = HotClickView.class.getName();
 
-    private Context mContext;
+    private final Context mContext;
     //热点区
     private Map<String, HotArea> mHotAreas;
     //检测的区域
@@ -70,7 +70,7 @@ public class HotClickView extends View {
     private long mDownTime;
 
     //Path中转RectF时的中间变量,可重复利用
-    private RectF mEmptyRectF = new RectF();
+    private final RectF mEmptyRectF = new RectF();
 
 
     //反弹时的线程
@@ -364,11 +364,15 @@ public class HotClickView extends View {
 
         private final static int MOVE_STEEP = 20;
 
-        private float direct;
+        private final float direct;
 
-        private boolean isMoveX;
+        private final boolean isMoveX;
 
-        private float srcX, srcY, dstX, dstY;
+        private float srcX, srcY;
+
+        private final float dstX;
+
+        private final float dstY;
 
         //一元一次方程
         private float a, b;

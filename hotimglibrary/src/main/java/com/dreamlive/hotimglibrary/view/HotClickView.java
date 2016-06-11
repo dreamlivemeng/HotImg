@@ -85,14 +85,37 @@ public class HotClickView extends View {
     //是否能缩放
     private boolean isCanScale = true;
 
+    private MotionEvent lastClick = null;
 
-    public void setCanScale(boolean canScale) {
-        isCanScale = canScale;
-    }
+    // 控件 内边距
+    private float mPadding = 0;
 
-    public void setCanMove(boolean canMove) {
-        isCanMove = canMove;
-    }
+    private short mFitXY = 0;
+
+    //不进行适配
+    public final static short FIT_NONE = 0;
+    //X方向适配
+    public final static short FIT_X = 1;
+    //Y方向适配
+    public final static short FIT_Y = 2;
+    //XY方向适配，以最小作为标准
+    public final static short FIT_XY = 3;
+
+    private HotArea mRootArea;
+
+    // 监听 回调事件
+    private OnClickListener mClickListener;
+
+    @SuppressLint("HandlerLeak")
+    protected Handler mViewHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            Float[] distance = (Float[]) msg.obj;
+            mMatrix.postTranslate(distance[0], distance[1]);
+            invalidate();
+        }
+
+        ;
+    };
 
     public HotClickView(Context context) {
         super(context);
@@ -110,6 +133,14 @@ public class HotClickView extends View {
         super(context, attrs);
         mContext = context;
         init();
+    }
+
+    public void setCanScale(boolean canScale) {
+        isCanScale = canScale;
+    }
+
+    public void setCanMove(boolean canMove) {
+        isCanMove = canMove;
     }
 
     protected void init() {
@@ -166,9 +197,6 @@ public class HotClickView extends View {
             LogUtils.d(TAG, "mSourceBitmap is null !");
         }
     }
-
-    // 控件 内边距
-    private float mPadding = 0;
 
     private void drawPath(Canvas canvas) {
         for (String key : mHotKeys) {
@@ -343,17 +371,6 @@ public class HotClickView extends View {
             mViewHandler.postDelayed(new MoveRunnable(moveXY[0], moveXY[1], dstXY[0], dstXY[1]), 0);
         }
     }
-
-    @SuppressLint("HandlerLeak")
-    protected Handler mViewHandler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            Float[] distance = (Float[]) msg.obj;
-            mMatrix.postTranslate(distance[0], distance[1]);
-            invalidate();
-        }
-
-        ;
-    };
 
     /**
      * 反弹时的动画线程
@@ -586,8 +603,6 @@ public class HotClickView extends View {
         }
     }
 
-    private MotionEvent lastClick = null;
-
     /**
      * @param bitmap
      */
@@ -611,8 +626,6 @@ public class HotClickView extends View {
         }
         invalidate();
     }
-
-    private short mFitXY = 0;
 
     public void setImageBitmap(String hotFilePath, String hotImgPath) {
         setImageBitmap(hotFilePath, hotImgPath, FIT_NONE);
@@ -649,15 +662,6 @@ public class HotClickView extends View {
     public void setImageBitmap(InputStream hotFileStream, InputStream hotImgStream) {
         setImageBitmap(hotFileStream, hotImgStream, FIT_NONE);
     }
-
-    //不进行适配
-    public final static short FIT_NONE = 0;
-    //X方向适配
-    public final static short FIT_X = 1;
-    //Y方向适配
-    public final static short FIT_Y = 2;
-    //XY方向适配，以最小作为标准
-    public final static short FIT_XY = 3;
 
     /**
      * 设置图片，从流中加载
@@ -751,8 +755,6 @@ public class HotClickView extends View {
         }
     }
 
-    private HotArea mRootArea;
-
     public HotArea getRootArea() {
         return mRootArea;
     }
@@ -775,10 +777,6 @@ public class HotClickView extends View {
             }
         }
     }
-
-
-    // 监听 回调事件
-    private OnClickListener mClickListener;
 
     /**
      * 设置点击 事件

@@ -41,4 +41,4 @@
 将图片中每个点击区域的像素坐标点配置assets文件下的xml中，例如一张图片像素800X600，在其坐上方（从左上方顶点开始）有一个50x50的正方形点击区域，那么他们pts为{0,0,0,50,50,50,50,0}也就是正方形的四个区域。  
 
 # Thanks  
-Everyone who has contributed code and reported issues!  
+Everyone who has contributed code and reported issues and pull requests!  

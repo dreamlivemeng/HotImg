@@ -28,7 +28,7 @@ public class XMLUtils {
 
     private final static String TAG = XMLUtils.class.getName();
 
-    private Context mContext;
+    private final Context mContext;
 
     private static volatile XMLUtils mXmlUtils;
 
@@ -219,7 +219,7 @@ public class XMLUtils {
 
         private String pointStr;
 
-        private List<Integer> points = new ArrayList<Integer>();
+        private final List<Integer> points = new ArrayList<Integer>();
 
         public String getPointStr() {
             return pointStr;

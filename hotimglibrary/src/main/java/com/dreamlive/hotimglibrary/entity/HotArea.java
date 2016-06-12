@@ -130,9 +130,9 @@ public class HotArea implements Serializable {
      * 不能传未实现Serializable接口的类
      */
     public class CheckArea {
-        private Path path;
+        private final Path path;
         //当前处理是从点的个数来判断是矩形 还是多边形,这两种的方式对点的位置判断不太一样
-        private boolean isRectF;
+        private final boolean isRectF;
 
         private CheckArea(int[] pts) {
             this.path = new Path();
